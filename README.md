@@ -1,5 +1,9 @@
 # 클론코딩2
 
+## 원본 페이지
+
+https://www.danielstoopendaal.nl
+
 ## 주목표
 
 - 반응형 웹사이트
@@ -20,9 +24,14 @@ next, framer-motion, swiper, react, tailwind, github, @heroicons/react
 
 next, framer-motion, swiper, react, tailwind, github, @heroicons/react
 
-### 03/31
+#### 03/31
 
 - git 시작.
 - 후보는 핀터레스트, X 필요하면 후보를 더 찾을 예정.
 
 p.s. 오늘은 면접보고 지쳤습니다... 내일부터 노력할게요.
+
+#### 04/01
+
+- 후보 선정 완료. 얼굴 이미지는 svg 삽입.
+- section1 애니메이션 및 반응형 제작 중.
