@@ -10,15 +10,14 @@ import {
   TBLetterS,
   TBLetterT,
 } from "@icongo/tb";
-import { animate } from "motion";
-import { inertia, motion } from "motion/react";
-import Image from "next/image";
+import { motion } from "motion/react";
+import { useSelector } from "react-redux";
 
 export default function Section1() {
   return (
     <>
       <section className="relative flex flex-col justify-end items-center w-full h-screen text-5xl text-white bg-title-section overflow-hidden">
-        <article className="sm:flex hidden justify-center w-full max-w-[100vw] h-[10vw] px-[23%] translate-y-[45px]">
+        <article className="sm:flex hidden justify-center w-full max-w-[100vw] h-[10vw] px-[23%] translate-y-[80px]">
           <TBLetterD className="w-full h-full" />
           <TBLetterA className="w-full h-full" />
           <TBLetterN className="w-full h-full" />
@@ -39,7 +38,7 @@ export default function Section1() {
           <TBLetterA className="w-full h-full" />
           <TBLetterL className="w-full h-full" />
         </article>
-        <div className="absolute bottom-0 left-[15%] sm:left-[85%] translate-x-[50%] sm:translate-x-[0%] w-[90%] max-w-[30rem] sm:w-[30rem] aspect-[2/3] grayscale">
+        <div className="absolute bottom-0 left-[15%] sm:left-[60%] w-[90%] max-w-[30rem] sm:w-[30rem] aspect-[2/3] grayscale">
           <svg viewBox="0 0 200 300">
             <path
               d="M0 0 L150 0 C 150 0, 200 0, 200 50 L200 50 L200 300 L 0 300 L0 0 Z"
@@ -105,7 +104,7 @@ const Curtain = () => {
           className="w-full h-[10vw] px-[23%] overflow-hidden"
           initial={{ translateY: 0 }}
           animate={{
-            translateY: [0, -45, 45],
+            translateY: [0, -45, 80],
             transition: { times: [0, 0.5, 1], duration: 0.3, delay: 1 },
           }}
         >
@@ -129,8 +128,8 @@ const Curtain = () => {
           className="w-full h-[10vw] overflow-hidden"
           initial={{ translateY: 0 }}
           animate={{
-            translateY: [0, 90, 45],
-            transition: { times: [0, 0.5, 1], duration: 0.3, delay: 1.5 },
+            translateY: [0, 60, 45],
+            transition: { times: [0, 0.5, 1], duration: 0.3, delay: 1.3 },
           }}
         >
           <motion.div

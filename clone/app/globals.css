@@ -64,6 +64,13 @@ html {
   --animate-upDown_pushed: 0.3s ease-in-out 1.5s normal forwards upDown_pushed;
 
   --color-title-section: oklch(0.84 0 0);
+
+  /* --breakpoint-xs: 480px; */
+  --breakpoint-sm: 720px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1280px;
+  --breakpoint-xl: 1720px;
+  --breakpoint-2xl: 1960px;
 }
 
 @utility container {

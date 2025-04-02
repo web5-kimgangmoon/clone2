@@ -12,7 +12,7 @@ https://www.danielstoopendaal.nl
 
 ### 스택
 
-next, framer-motion, swiper, react, tailwind, github, @heroicons/react
+next, framer-motion, swiper, react, tailwind, github, @heroicons/react, Lenis
 
 ### 기타
 
@@ -35,3 +35,10 @@ p.s. 오늘은 면접보고 지쳤습니다... 내일부터 노력할게요.
 
 - 후보 선정 완료. 얼굴 이미지는 svg 삽입.
 - section1 애니메이션 및 반응형 제작 중.
+
+#### 04/02
+
+- section1 css 및 미끄러지는 스크롤 이펙트 작성중
+- css의 추가나 수정은 적지만, 내부 로직은 크게 수정됐습니다.
+- 전역 상태 관리 라이브러리(redux)와 resize 이벤트로 스크린의 브레이크 포인트 관리.
+- lenis 라이브러리 추가.
