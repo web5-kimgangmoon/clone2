@@ -34,7 +34,12 @@ export default function Section1() {
         }
         transition={
           isDesk
-            ? { times: [0, 0.5, 1], duration: 0.3, delay: 1 }
+            ? {
+                times: [0, 0.5, 1],
+                duration: 0.4,
+                delay: 0.4,
+                ease: "circInOut",
+              }
             : { duration: 0 }
         }
       >
@@ -51,8 +56,8 @@ export default function Section1() {
           transition={
             isDesk
               ? {
-                  color: { times: [0, 1], delay: 2.5, duration: 0.2 },
-                  translateY: { times: [0, 1], duration: 0.3 },
+                  color: { times: [0, 1], delay: 1.4, duration: 0.3 },
+                  translateY: { times: [0, 1], duration: 0.15 },
                 }
               : { duration: 0 }
           }
@@ -70,13 +75,18 @@ export default function Section1() {
         animate={
           isDesk
             ? {
-                translateY: ["-2vw", "4vw", "2vw"],
+                translateY: [0, "4vw", "2vw"],
               }
             : { translateY: "2vw" }
         }
         transition={
           isDesk
-            ? { times: [0, 0.5, 1], duration: 0.3, delay: 1.3 }
+            ? {
+                times: [0, 0.5, 1],
+                duration: 0.4,
+                delay: 0.85,
+                ease: "circInOut",
+              }
             : { duration: 0 }
         }
       >
@@ -93,8 +103,8 @@ export default function Section1() {
           transition={
             isDesk
               ? {
-                  translateY: { times: [0, 1], duration: 0.3, delay: 0.5 },
-                  color: { times: [0, 1], delay: 2.5, duration: 0.2 },
+                  translateY: { times: [0, 1], duration: 0.15, delay: 0.2 },
+                  color: { times: [0, 1], delay: 1.4, duration: 0.3 },
                 }
               : { duration: 0 }
           }
@@ -115,7 +125,7 @@ export default function Section1() {
       <motion.div
         className="absolute bottom-0 left-[15%] right-[unset] sm:left-[unset] sm:right-[10vw] w-[90%] max-w-[30rem] sm:w-[30rem] aspect-[2/3] grayscale"
         animate={isDesk ? { zIndex: [0, 11] } : { zIndex: 10 }}
-        transition={isDesk ? { duration: 0.3, delay: 2.5 } : { duration: 0 }}
+        transition={isDesk ? { duration: 0.15, delay: 1.4 } : { duration: 0 }}
       >
         <svg viewBox="0 0 200 300">
           <path
@@ -129,7 +139,7 @@ export default function Section1() {
         animate={isDesk ? { translateY: "-100vh" } : { translateY: "0vh" }}
         transition={
           isDesk
-            ? { duration: 0.5, delay: 2.5, ease: "easeIn" }
+            ? { duration: 0.5, delay: 1.4, ease: "easeInOut" }
             : { duration: 0 }
         }
       />
