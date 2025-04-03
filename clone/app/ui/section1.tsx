@@ -12,20 +12,93 @@ import {
 } from "@icongo/tb";
 import { motion } from "motion/react";
 import { useSelector } from "react-redux";
+import { useMemo } from "react";
+import checkDesktop from "../lib/checkDesktop";
 
 export default function Section1() {
+  const breakpoint = useSelector<
+    { breakpoint: { breakpoint: string } },
+    string
+  >((state) => state.breakpoint.breakpoint);
+  const isDesk = useMemo(() => checkDesktop(breakpoint), [breakpoint]);
   return (
-    <>
-      <section className="relative flex flex-col justify-end items-center w-full h-screen text-5xl text-white bg-title-section overflow-hidden">
-        <article className="sm:flex hidden justify-center w-full max-w-[100vw] h-[10vw] px-[23%] translate-y-[80px]">
+    <section className="relative flex flex-col justify-end items-center w-full h-screen text-5xl text-white bg-title-section overflow-hidden">
+      <motion.article
+        className="relative z-10 hidden sm:block w-full h-[10vw] px-[23%] overflow-hidden"
+        animate={
+          isDesk
+            ? {
+                translateY: [0, "-3vw", "4vw"],
+              }
+            : { translateY: "4vw" }
+        }
+        transition={
+          isDesk
+            ? { times: [0, 0.5, 1], duration: 0.3, delay: 1 }
+            : { duration: 0 }
+        }
+      >
+        <motion.div
+          className="flex justify-center w-full h-full max-w-[100vw] -translate-y-full"
+          animate={
+            isDesk
+              ? {
+                  translateY: [0, "10vw"],
+                  color: ["rgba(77, 77, 77,1)", "rgba(255,255,255,1)"],
+                }
+              : { translateY: "10vw", color: "rgba(255,255,255,1)" }
+          }
+          transition={
+            isDesk
+              ? {
+                  color: { times: [0, 1], delay: 2.5, duration: 0.2 },
+                  translateY: { times: [0, 1], duration: 0.3 },
+                }
+              : { duration: 0 }
+          }
+        >
           <TBLetterD className="w-full h-full" />
           <TBLetterA className="w-full h-full" />
           <TBLetterN className="w-full h-full" />
           <TBLetterI className="w-full h-full" />
           <TBLetterE className="w-full h-full" />
           <TBLetterL className="w-full h-full" />
-        </article>
-        <article className="sm:flex hidden w-full h-[10vw] translate-y-[45px] z-10">
+        </motion.div>
+      </motion.article>
+      <motion.article
+        className="relative z-20 hidden sm:block w-full h-[10vw] overflow-hidden"
+        animate={
+          isDesk
+            ? {
+                translateY: ["-2vw", "4vw", "2vw"],
+              }
+            : { translateY: "2vw" }
+        }
+        transition={
+          isDesk
+            ? { times: [0, 0.5, 1], duration: 0.3, delay: 1.3 }
+            : { duration: 0 }
+        }
+      >
+        <motion.div
+          className="flex w-full h-full -translate-y-full"
+          animate={
+            isDesk
+              ? {
+                  translateY: [0, "10vw"],
+                  color: ["rgba(77, 77, 77,1)", "rgba(255,255,255,1)"],
+                }
+              : { translateY: "10vw", color: "rgba(255,255,255,1)" }
+          }
+          transition={
+            isDesk
+              ? {
+                  translateY: { times: [0, 1], duration: 0.3, delay: 0.5 },
+                  color: { times: [0, 1], delay: 2.5, duration: 0.2 },
+                }
+              : { duration: 0 }
+          }
+        >
           <TBLetterS className="w-full h-full" />
           <TBLetterT className="w-full h-full" />
           <TBLetterO className="w-full h-full" />
@@ -37,161 +110,29 @@ export default function Section1() {
           <TBLetterA className="w-full h-full" />
           <TBLetterA className="w-full h-full" />
           <TBLetterL className="w-full h-full" />
-        </article>
-        <div className="absolute bottom-0 left-[15%] sm:left-[60%] w-[90%] max-w-[30rem] sm:w-[30rem] aspect-[2/3] grayscale">
-          <svg viewBox="0 0 200 300">
-            <path
-              d="M0 0 L150 0 C 150 0, 200 0, 200 50 L200 50 L200 300 L 0 300 L0 0 Z"
-              fill="green"
-            />
-          </svg>
-        </div>
-      </section>
-      <Curtain />
-    </>
+        </motion.div>
+      </motion.article>
+      <motion.div
+        className="absolute bottom-0 left-[15%] right-[unset] sm:left-[unset] sm:right-[10vw] w-[90%] max-w-[30rem] sm:w-[30rem] aspect-[2/3] grayscale"
+        animate={isDesk ? { zIndex: [0, 11] } : { zIndex: 10 }}
+        transition={isDesk ? { duration: 0.3, delay: 2.5 } : { duration: 0 }}
+      >
+        <svg viewBox="0 0 200 300">
+          <path
+            d="M0 0 L150 0 C 150 0, 200 0, 200 50 L200 50 L200 300 L 0 300 L0 0 Z"
+            fill="green"
+          />
+        </svg>
+      </motion.div>
+      <motion.div
+        className="hidden md:block absolute top-0 left-0 w-full h-screen bg-white"
+        animate={isDesk ? { translateY: "-100vh" } : { translateY: "0vh" }}
+        transition={
+          isDesk
+            ? { duration: 0.5, delay: 2.5, ease: "easeIn" }
+            : { duration: 0 }
+        }
+      />
+    </section>
   );
 }
-
-// const Curtain = () => {
-//   return (
-//     <motion.div
-//       className={
-//         "fixed top-0 left-0 w-full h-screen bg-slate-300 overflow-hidden"
-//       }
-//       initial={{ height: "100%" }}
-//       animate={{ height: 0 }}
-//       transition={{ duration: 0.5, delay: 2, ease: "easeIn" }}
-//     >
-//       <div className="flex flex-col justify-end items-center w-full h-[100vh] text-5xl">
-//         <div className="flex justify-center w-full max-w-[100vw] h-[10vw] px-[23%]">
-//           <TBLetterD className="w-full h-full" />
-//           <TBLetterA className="w-full h-full" />
-//           <TBLetterN className="w-full h-full" />
-//           <TBLetterI className="w-full h-full" />
-//           <TBLetterE className="w-full h-full" />
-//           <TBLetterL className="w-full h-full" />
-//         </div>
-//         <div className="flex w-full h-[10vw]">
-//           <TBLetterS className="w-full h-full" />
-//           <TBLetterT className="w-full h-full" />
-//           <TBLetterO className="w-full h-full" />
-//           <TBLetterO className="w-full h-full" />
-//           <TBLetterP className="w-full h-full" />
-//           <TBLetterE className="w-full h-full" />
-//           <TBLetterN className="w-full h-full" />
-//           <TBLetterD className="w-full h-full" />
-//           <TBLetterA className="w-full h-full" />
-//           <TBLetterA className="w-full h-full" />
-//           <TBLetterL className="w-full h-full" />
-//         </div>
-//       </div>
-//     </motion.div>
-//   );
-// };
-
-const Curtain = () => {
-  return (
-    <motion.div
-      className={
-        "fixed top-0 left-0 z-10 w-full h-screen bg-white overflow-hidden"
-      }
-      initial={{ height: "100%" }}
-      animate={{ height: 0 }}
-      transition={{ duration: 0.5, delay: 2.5, ease: "easeIn" }}
-    >
-      <div className="flex flex-col justify-end items-center w-full h-[100vh] text-5xl">
-        <motion.div
-          className="w-full h-[10vw] px-[23%] overflow-hidden"
-          initial={{ translateY: 0 }}
-          animate={{
-            translateY: [0, -45, 80],
-            transition: { times: [0, 0.5, 1], duration: 0.3, delay: 1 },
-          }}
-        >
-          <motion.div
-            className="flex justify-center w-full h-full max-w-[100vw] -translate-y-full"
-            initial={{ translateY: 0 }}
-            animate={{
-              translateY: "10vw",
-              transition: { duration: 0.3 },
-            }}
-          >
-            <TBLetterD className="w-full h-full" />
-            <TBLetterA className="w-full h-full" />
-            <TBLetterN className="w-full h-full" />
-            <TBLetterI className="w-full h-full" />
-            <TBLetterE className="w-full h-full" />
-            <TBLetterL className="w-full h-full" />
-          </motion.div>
-        </motion.div>
-        <motion.div
-          className="w-full h-[10vw] overflow-hidden"
-          initial={{ translateY: 0 }}
-          animate={{
-            translateY: [0, 60, 45],
-            transition: { times: [0, 0.5, 1], duration: 0.3, delay: 1.3 },
-          }}
-        >
-          <motion.div
-            className="flex w-full h-full -translate-y-full"
-            initial={{ translateY: 0 }}
-            animate={{
-              translateY: "10vw",
-              transition: { duration: 0.3, delay: 0.5 },
-            }}
-          >
-            <TBLetterS className="w-full h-full" />
-            <TBLetterT className="w-full h-full" />
-            <TBLetterO className="w-full h-full" />
-            <TBLetterO className="w-full h-full" />
-            <TBLetterP className="w-full h-full" />
-            <TBLetterE className="w-full h-full" />
-            <TBLetterN className="w-full h-full" />
-            <TBLetterD className="w-full h-full" />
-            <TBLetterA className="w-full h-full" />
-            <TBLetterA className="w-full h-full" />
-            <TBLetterL className="w-full h-full" />
-          </motion.div>
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-};
-
-// const Curtain = () => {
-//   return (
-//     <div
-//       className={
-//         "fixed top-0 left-0 w-full h-screen bg-white overflow-hidden animate-curtainUp"
-//       }
-//     >
-//       <div className="flex flex-col justify-end items-center w-full h-[100vh] text-5xl">
-//         <div className="w-full h-[10vw] px-[23%] overflow-hidden animate-upDown_push">
-//           <div className="flex justify-center w-full h-full max-w-[100vw] -translate-y-full animate-titleDown">
-//             <TBLetterD className="w-full h-full" />
-//             <TBLetterA className="w-full h-full" />
-//             <TBLetterN className="w-full h-full" />
-//             <TBLetterI className="w-full h-full" />
-//             <TBLetterE className="w-full h-full" />
-//             <TBLetterL className="w-full h-full" />
-//           </div>
-//         </div>
-//         <div className="w-full h-[10vw] overflow-hidden animate-upDown_pushed">
-//           <div className="flex w-full h-full -translate-y-full animate-titleDown2">
-//             <TBLetterS className="w-full h-full" />
-//             <TBLetterT className="w-full h-full" />
-//             <TBLetterO className="w-full h-full" />
-//             <TBLetterO className="w-full h-full" />
-//             <TBLetterP className="w-full h-full" />
-//             <TBLetterE className="w-full h-full" />
-//             <TBLetterN className="w-full h-full" />
-//             <TBLetterD className="w-full h-full" />
-//             <TBLetterA className="w-full h-full" />
-//             <TBLetterA className="w-full h-full" />
-//             <TBLetterL className="w-full h-full" />
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };

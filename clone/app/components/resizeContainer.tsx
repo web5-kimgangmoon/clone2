@@ -10,7 +10,8 @@ export default function ResizeContainer({
   const dispatch = useDispatch();
   useEffect(() => {
     window.addEventListener("resize", (e) => {
-      dispatch(setWindowH(e.target!.innerWidth));
+      if (e.target instanceof Window)
+        dispatch(setWindowH(e.target!.innerWidth));
     });
     dispatch(setWindowH(window.innerWidth));
   }, []);
