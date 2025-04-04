@@ -49,3 +49,8 @@ p.s. 오늘은 면접보고 지쳤습니다... 내일부터 노력할게요.
 - height로 조절하던 커튼 애니메이션을, 구조를 바꾸고 translateY로 핸들링하도록 바꿨습니다.
 - resizeContainer 모듈, 잘못된 로직 수정.
 - section1의 css 포지션 조정.
+
+#### 04/04
+
+- section 쪽에 요소 하나 추가.(로고)
+- header 추가.
