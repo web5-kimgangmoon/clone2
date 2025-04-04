@@ -6,6 +6,7 @@ import { useId } from "react";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import ResizeContainer from "./components/resizeContainer";
+import Header from "./ui/header";
 
 export default function Home() {
   const root_id = useId();
@@ -34,8 +35,12 @@ export default function Home() {
     <ReactLenis root>
       <Provider store={store}>
         <ResizeContainer>
+          <Header />
           <Section1 />
-          <div className="relative" id={root_id}></div>
+          <div className="w-full h-screen bg-yellow-300"></div>
+          <div className="w-full h-screen bg-yellow-300"></div>
+          <div className="w-full h-screen bg-yellow-300"></div>
+          <div className="w-full h-screen bg-yellow-300"></div>
         </ResizeContainer>
       </Provider>
     </ReactLenis>
