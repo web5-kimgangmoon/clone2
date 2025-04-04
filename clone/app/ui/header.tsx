@@ -114,11 +114,11 @@ export const MenuBtn = ({
 
 const NavMenu_mobile = ({ isOn }: { isOn: boolean }) => {
   return (
-    <div className="fixed z-[998] top-6 right-0 block sm:hidden pr-8">
+    <div className="fixed z-[1000] w-max h-max top-0 right-0 block sm:hidden pr-8 -translate-y-full">
       <motion.nav
         className="flex flex-col gap-2 p-1 bg-zinc-200/50 backdrop-blur-xl  text-[1.1rem] text-right rounded-lg"
-        initial={{ translateY: -300 }}
-        animate={isOn ? { translateY: [-300, 55] } : { translateY: -300 }}
+        initial={{ translateY: 0 }}
+        animate={isOn ? { translateY: [0, 255] } : { translateY: 0 }}
         transition={{
           translateY: { times: [0, 1], duration: 0.5 },
         }}
