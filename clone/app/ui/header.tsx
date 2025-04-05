@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { motion } from "motion/react";
 import checkDesktop from "../lib/checkDesktop";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 
@@ -13,6 +13,10 @@ export default function Header() {
   >((state) => state.breakpoint.breakpoint);
   const isDesk = useMemo(() => checkDesktop(breakpoint), [breakpoint]);
   const [isOn, setIsOn] = useState(false);
+  useEffect(() => {
+    console.log(breakpoint);
+    if (breakpoint !== "xxs" && breakpoint !== "xs") setIsOn(false);
+  }, [breakpoint]);
   return (
     <header>
       <motion.nav
