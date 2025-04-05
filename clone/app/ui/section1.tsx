@@ -14,6 +14,7 @@ import { motion } from "motion/react";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import checkDesktop from "../lib/checkDesktop";
+import Image from "next/image";
 
 export default function Section1() {
   const breakpoint = useSelector<
@@ -23,8 +24,20 @@ export default function Section1() {
   const isDesk = useMemo(() => checkDesktop(breakpoint), [breakpoint]);
   return (
     <section className="relative flex flex-col justify-end items-center w-full h-screen text-5xl text-white bg-title-section overflow-hidden">
+      <div className="absolute top-4 left-0 block sm:hidden w-max h-max">
+        <Image
+          src={"/logo.png"}
+          alt="logo"
+          // fill
+          width={200}
+          height={250}
+          style={{ objectFit: "contain" }}
+          className="h-13"
+        />
+      </div>
       <motion.article
-        className="relative z-10 hidden sm:block w-full h-[10vw] px-[23%] overflow-hidden"
+        className="relative hidden sm:block w-full h-[10vw] px-[23%] overflow-hidden z-11"
+        style={{ translateY: "4vw" }}
         animate={
           isDesk
             ? {
@@ -45,6 +58,7 @@ export default function Section1() {
       >
         <motion.div
           className="flex justify-center w-full h-full max-w-[100vw] -translate-y-full"
+          initial={{ translateY: "10vw" }}
           animate={
             isDesk
               ? {
@@ -72,6 +86,7 @@ export default function Section1() {
       </motion.article>
       <motion.article
         className="relative z-20 hidden sm:block w-full h-[10vw] overflow-hidden"
+        initial={{ translateY: "2vw" }}
         animate={
           isDesk
             ? {
@@ -92,6 +107,7 @@ export default function Section1() {
       >
         <motion.div
           className="flex w-full h-full -translate-y-full"
+          initial={{ translateY: "10vw" }}
           animate={
             isDesk
               ? {
@@ -135,7 +151,7 @@ export default function Section1() {
         </svg>
       </motion.div>
       <motion.div
-        className="hidden md:block absolute top-0 left-0 w-full h-screen bg-white"
+        className="hidden md:block absolute top-0 left-0 w-full h-screen bg-white z-10"
         animate={isDesk ? { translateY: "-100vh" } : { translateY: "0vh" }}
         transition={
           isDesk
