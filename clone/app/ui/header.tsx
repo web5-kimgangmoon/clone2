@@ -14,7 +14,6 @@ export default function Header() {
   const isDesk = useMemo(() => checkDesktop(breakpoint), [breakpoint]);
   const [isOn, setIsOn] = useState(false);
   useEffect(() => {
-    console.log(breakpoint);
     if (breakpoint !== "xxs" && breakpoint !== "xs") setIsOn(false);
   }, [breakpoint]);
   return (
