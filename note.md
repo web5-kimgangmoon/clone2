@@ -9,3 +9,25 @@
 - 세상에는 메모리 부하를 감소시키려는 다양한 시도를 하는 개발자들이 있다. 너무 고정관념에 사로잡히지 말자. 커튼 컴포넌트를 따로 만들고 height를 줄일 필요는 없다. 배경색을 칠한 컴포넌트만 만든 후에 translateY로 올리기만 하면 된다.
 
 - redux는 context와 달리 전역상태를 사용중인 컴포넌트만 리렌더링한다.
+
+- const scroll = useScroll({
+  target: ref,
+  offset: [`-10% end`, "end -10%"],
+  });
+
+  target을 기준으로 스크롤 값을 계산, 컨테이너는 반드시 relative, absolute, fixed 중 하나여야만 함. offset은 겹치는 부분을 기준으로 진행도를 계산한다.
+  ['타겟의 시작점, 타겟의 끝', '컨테이너의 시작점, 컨테이너의 끝']
+
+  타겟의 시작점과 컨테이너의 끝이 겹친 곳부터 컨테이너의 시작점과 타겟의 끝이 겹친 부분까지를 기준으로 스크롤 계산.
+
+  컨테이너는 일종의 카메라, target은 피사체, 컨테이너... 좀 더 공부가 필요할 것 같다. 기본 offset은 타겟 요소가 screen을 꽉 채울 경우를 기준으로 하고 있다.
+
+- useMotion, useTransform, useSpring
+
+  - useMotion은 일반적인 state값은 motion 라이브러리에서 활용할 수 없기에 motion 라이브러리가 활용하기 좋은 값으로 변환시켜준다.
+
+  - useTransform은 motionValue값을 범위에 맞춰 변환시켜 반환해준다. 예를 들어, useTransform(motionValue, [0,1], [-20,20]);은 motionValue의 값이 0~1 사이에서, -20과 20이 반환되도록 값을 변형시켜준다.
+
+  - useSpring은 애니메이션이 포함된 값을 반환하도록 해주는 훅이다. transform을 쓴다고 해도 그 값은 애니메이션을 고려한 값이 아니라, 그냥 원하는 값이 반환되도록 변형만 해준다.
+
+    그러나 useSpring을 활용하면 애니메이션이 포함된 값을 반환해주므로 어떻게 보면 motion-framer의 중추라고 해도 되지 않을까

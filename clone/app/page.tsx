@@ -2,7 +2,6 @@
 
 import ReactLenis from "lenis/react";
 import Section1 from "./ui/section1";
-import { useId } from "react";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import ResizeContainer from "./components/resizeContainer";
@@ -10,8 +9,6 @@ import Header from "./ui/header";
 import Section_body from "./ui/section_body";
 
 export default function Home() {
-  const root_id = useId();
-
   // useInitialAnime();
   // useEffect(() => {
   //   const make_term = setTimeout(() => {
@@ -39,10 +36,6 @@ export default function Home() {
           <Header />
           <Section1 />
           <Section_body />
-          <div className="w-full h-screen bg-yellow-300"></div>
-          <div className="w-full h-screen bg-yellow-300"></div>
-          <div className="w-full h-screen bg-yellow-300"></div>
-          <div className="w-full h-screen bg-yellow-300"></div>
         </ResizeContainer>
       </Provider>
     </ReactLenis>
