@@ -12,6 +12,7 @@ import {
   MouseEventHandler,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
 } from "react";
@@ -48,34 +49,60 @@ const Paragram = () => {
     { breakpoint: { breakpoint: string } },
     string
   >((state) => state.breakpoint.breakpoint);
-  const isDesk = useMemo(() => {
-    return checkDesktop(breakpoint) && breakpoint !== "md";
-  }, [breakpoint]);
+  // const isDesk = useMemo(() => {
+  //   return checkDesktop(breakpoint) && breakpoint !== "md";
+  // }, [breakpoint]);
 
   const [scope, animate] = useAnimate<HTMLParagraphElement>();
   const ref = useRef<HTMLDivElement | null>(null);
   useLineDivde(
     "Creative with a passion for digital product design and low code development. A background in the music industry further enriches my perspective. I thrive on collaborating with individuals who bring forth innovative ideas.",
     ref,
-    isDesk
+    breakpoint,
+    scope
   );
 
-  useEffect(() => {
-    if (scope.current.getElementsByTagName("span").length !== 0)
-      animate("span", { opacity: "1", translate: "0px 0%" });
-  }, [isDesk]);
+  const scroll = useScroll({ target: ref });
+  scroll.scrollYProgress.on("change", (l) => {
+    if (
+      l < 1 &&
+      scope.current.getElementsByTagName("span").length !== 0 &&
+      scope.animations.length === 0
+    ) {
+      const spans = ref.current!.getElementsByTagName("span");
+      for (let i = 0; i < spans.length; i++) {
+        const target = spans.item(i)!;
+        animate(
+          target,
+          {
+            translate: "0px 0%",
+            opacity: 1,
+          },
+          {
+            duration: 0.3,
+            delay: 0.3 * i,
+          }
+        );
+      }
+    }
+  });
   return (
     <div
       className="w-[90vw] max-w-[64rem] mx-auto pt-32 pb-72"
       ref={scope}
       id="about"
     >
-      <motion.p className="text-3xl leading-12 md:text-wrap" ref={ref}>
-        Creative with a passion for digital product design and low code
-        development. A background in the music industry further enriches my
-        perspective. I thrive on collaborating with individuals who bring forth
-        innovative ideas.
-      </motion.p>
+      <p
+        className="text-2xl xs:text-sm sm:text-3xl sm:leading-12 md:text-wrap"
+        ref={ref}
+      >
+        <span className="opacity-0">
+          Creative with a passion for digital product design and low code
+          development. A background in the music industry further enriches my
+          perspective. I thrive on collaborating with individuals who bring
+          forth innovative ideas.
+        </span>
+      </p>
     </div>
   );
 };
@@ -92,17 +119,26 @@ const Projects = () => {
     [0, 1],
     ["0rem", "3rem"]
   );
+  const breakpoint = useSelector<
+    { breakpoint: { breakpoint: string } },
+    string
+  >((state) => state.breakpoint.breakpoint);
+  const isPhone = useMemo(
+    () => breakpoint === "xs" || breakpoint === "xxs",
+    [breakpoint]
+  );
+
   const springY = useSpring(y, { bounce: 0 });
   const springY_reverse = useSpring(y_reverse, { bounce: 0 });
   return (
     <div
-      className="relative z-1 flex gap-5 w-[90vw] max-w-[64rem] mx-auto"
+      className="relative z-1 flex flex-col xs:flex-row gap-5 w-[90vw] max-w-[64rem] mx-auto"
       ref={ref}
     >
       <motion.div
         className={`flex flex-col gap-5 w-full pt-[3rem]`}
         style={{
-          translateY: springY,
+          translateY: isPhone ? 0 : springY,
         }}
       >
         <Item
@@ -121,7 +157,7 @@ const Projects = () => {
       <motion.div
         className="flex flex-col gap-5 w-full"
         style={{
-          translateY: springY_reverse,
+          translateY: isPhone ? 0 : springY_reverse,
         }}
       >
         <Item
@@ -205,9 +241,11 @@ const Item = ({
         </motion.div>
       </div>
       <h3 className="py-3">
-        <div className="px-3 py-1 bg-gray-100 w-max rounded-2xl">{t}</div>
+        <div className="px-3 py-1 bg-gray-100 w-max rounded-2xl text-base">
+          {t}
+        </div>
       </h3>
-      <p className="text-[2rem] leading-10">{p}</p>
+      <p className="text-2xl sm:text-[2rem] sm:leading-10">{p}</p>
     </motion.a>
   );
 };
@@ -228,9 +266,12 @@ const BgText = () => {
   const springX = useSpring(x, { bounce: 0 });
   const springx_reverse = useSpring(reverse_x, { bounce: 0 });
   return (
-    <div className="sticky top-[10%] left-0 text-zinc-100" ref={ref}>
+    <div
+      className="sticky top-[10%] left-0 pb-48 xs:pb-64 md:pb-0 text-zinc-100 overflow-hidden"
+      ref={ref}
+    >
       <div
-        className="flex flex-col text-[13rem] leading-49 tracking-tight text-nowrap"
+        className="flex flex-col text-[4rem] md:text-[13rem] leading-16 xs:leading-6 md:leading-49 tracking-tight text-nowrap"
         id="work"
       >
         <motion.h1 style={{ translateX: springX }} className="text-left">

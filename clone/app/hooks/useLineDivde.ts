@@ -1,12 +1,15 @@
 import { RefObject, useEffect } from "react";
+import checkDesktop from "../lib/checkDesktop";
+import { AnimationScope } from "motion";
 
 export default function (
   str: string,
   ref: RefObject<HTMLDivElement | null>,
-  isDesk: boolean
+  breakpoint: string,
+  scope: AnimationScope<HTMLParagraphElement>
 ) {
   useEffect(() => {
-    console.log(ref.current?.clientWidth);
+    const isDesk = checkDesktop(breakpoint) && breakpoint !== "md";
     if (!isDesk) {
       ref.current!.style.textWrap = "no-wrap";
       ref.current!.innerText = "";
@@ -20,17 +23,15 @@ export default function (
         line.style.width = "max-content";
         line.style.display = "block";
 
-        line.style.transitionDelay = `${200 * lineIdx}ms`;
-        line.style.opacity = "0";
-        line.style.translate = "0px 100%";
-        line.style.transitionDuration = "0.2s";
-        line.style.transitionTimingFunction = "ease-out";
+        if (scope?.animations && scope.animations.length === 0) {
+          line.style.opacity = "0";
+          line.style.translate = "0px 70%";
+        }
 
         ref.current!.appendChild(line);
         while (idx < words.length) {
           if (line.innerText === "") line.innerText += words[idx];
           else line.innerText += " " + words[idx];
-
           if (line.clientWidth > ref.current!.clientWidth) {
             line.innerHTML = line.innerHTML.replace(" " + words[idx], " ");
             // line.style.display = "inline";
@@ -40,11 +41,14 @@ export default function (
             idx++;
           }
         }
+        line.style.width = "";
         // if (idx === words.length) {
         //   line.style.display = "inline";
         //   ref.current!.style.textWrap = "wrap";
         // }
       }
+    } else {
+      ref.current!.innerHTML = str;
     }
-  }, [isDesk]);
+  }, [breakpoint]);
 }
