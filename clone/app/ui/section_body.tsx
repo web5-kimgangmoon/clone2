@@ -134,6 +134,7 @@ const Projects = () => {
         style={{
           translateY: isPhone ? 0 : springY,
         }}
+        id="work"
       >
         <Item
           img={"#"}
@@ -264,10 +265,7 @@ const BgText = () => {
       className="sticky top-[10%] left-0 pb-48 xs:pb-64 md:pb-0 text-zinc-100 overflow-hidden"
       ref={ref}
     >
-      <div
-        className="flex flex-col text-[4rem] md:text-[13rem] leading-16 xs:leading-6 md:leading-45 tracking-tight text-nowrap"
-        id="work"
-      >
+      <div className="flex flex-col text-[4rem] md:text-[13rem] leading-16 xs:leading-6 md:leading-45 tracking-tight text-nowrap">
         <motion.h1 style={{ translateX: springX }} className="text-left">
           recent projects
         </motion.h1>
