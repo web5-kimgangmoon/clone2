@@ -47,7 +47,7 @@ export default function Footer() {
         </address>
       </section>
       <section className="flex justify-between w-[85vw] xs:w-[90vw] sm:w-[95vw] max-w-[80rem] mx-auto pt-10 sm:pt-6 md:pt-10 border-t text-[1.1rem] xs:text-lg tracking-tight">
-        <small className="block pt-0 sm:pt-4 md:pt-0">
+        <small className="block pt-0 xs:pt-4 md:pt-0">
           © 2024 Daniel Stoopendaal. All rights reserved.
         </small>
         <Link href={"#"} className="block w-[160px] aspect-[5]">

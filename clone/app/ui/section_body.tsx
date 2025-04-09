@@ -22,7 +22,7 @@ export default function Section_body() {
   const isDesk = useMemo(() => checkDesktop(breakpoint), [breakpoint]);
   return (
     <motion.section
-      className="relative bg-white block md:hidden pb-20 sm:pb-32"
+      className="relative bg-white block md:hidden"
       animate={isDesk ? { display: ["none", "block"] } : { display: "block" }}
       transition={
         isDesk
@@ -33,6 +33,7 @@ export default function Section_body() {
       <Paragram />
       <BgText />
       <Projects />
+      <div className="pb-20 sm:pb-36"></div>
     </motion.section>
   );
 }
@@ -264,7 +265,7 @@ const BgText = () => {
       ref={ref}
     >
       <div
-        className="flex flex-col text-[4rem] md:text-[13rem] leading-16 xs:leading-6 md:leading-49 tracking-tight text-nowrap"
+        className="flex flex-col text-[4rem] md:text-[13rem] leading-16 xs:leading-6 md:leading-45 tracking-tight text-nowrap"
         id="work"
       >
         <motion.h1 style={{ translateX: springX }} className="text-left">
