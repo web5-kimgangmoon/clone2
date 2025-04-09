@@ -10,9 +10,15 @@ import {
   TBLetterS,
   TBLetterT,
 } from "@icongo/tb";
-import { motion } from "motion/react";
+import {
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import { useSelector } from "react-redux";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import checkDesktop from "../lib/checkDesktop";
 import Image from "next/image";
 
@@ -22,6 +28,15 @@ export default function Section1() {
     string
   >((state) => state.breakpoint.breakpoint);
   const isDesk = useMemo(() => checkDesktop(breakpoint), [breakpoint]);
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  const scroll = useScroll({
+    target: ref,
+    offset: ["end end", `${isDesk ? "end" : "center"} start`],
+  });
+  const s = useTransform(scroll.scrollYProgress, [0, 1], ["0rem", "5rem"]);
+  // const s = useSpring(t, { bounce: 0 });
+
   return (
     <section className="relative flex flex-col justify-end items-center w-full h-screen text-5xl text-white bg-title-section overflow-hidden">
       <div className="absolute top-4 left-0 block sm:hidden w-max h-max">
@@ -143,12 +158,14 @@ export default function Section1() {
         animate={isDesk ? { zIndex: [0, 11] } : { zIndex: 10 }}
         transition={isDesk ? { duration: 0.15, delay: 1.4 } : { duration: 0 }}
       >
-        <svg viewBox="0 0 200 300">
-          <path
-            d="M0 0 L150 0 C 150 0, 200 0, 200 50 L200 50 L200 300 L 0 300 L0 0 Z"
-            fill="green"
-          />
-        </svg>
+        <motion.div ref={ref} style={{ y: s }}>
+          <svg viewBox="0 0 200 300">
+            <path
+              d="M0 0 L150 0 C 150 0, 200 0, 200 50 L200 50 L200 300 L 0 300 L0 0 Z"
+              fill="green"
+            />
+          </svg>
+        </motion.div>
       </motion.div>
       <motion.div
         className="hidden md:block absolute top-0 left-0 w-full h-screen bg-white z-10"

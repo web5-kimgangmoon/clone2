@@ -3,72 +3,83 @@ import { useSelector } from "react-redux";
 import { motion } from "motion/react";
 import checkDesktop from "../lib/checkDesktop";
 import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
 import clsx from "clsx";
+import { Lenis, useLenis } from "lenis/react";
 
 export default function Header() {
   const breakpoint = useSelector<
     { breakpoint: { breakpoint: string } },
     string
   >((state) => state.breakpoint.breakpoint);
-  const isDesk = useMemo(() => checkDesktop(breakpoint), [breakpoint]);
+
   const [isOn, setIsOn] = useState(false);
   useEffect(() => {
-    console.log(breakpoint);
     if (breakpoint !== "xxs" && breakpoint !== "xs") setIsOn(false);
   }, [breakpoint]);
   return (
     <header>
-      <motion.nav
-        className="fixed z-[999] md:z-[0] top-4 left-1/2 -translate-x-1/2 hidden sm:flex gap-2 h-14 p-1 bg-zinc-200/50 backdrop-blur-xl text-[1.1rem] text-center rounded-lg"
-        initial={{ translateY: 0 }}
-        animate={
-          isDesk
-            ? { translateY: [-100, 0], zIndex: [0, 999] }
-            : { translateY: 0 }
-        }
-        transition={
-          isDesk
-            ? {
-                translateY: { times: [0, 1], duration: 0.5, delay: 1.9 },
-                zIndex: { duration: 0 },
-              }
-            : { duration: 0 }
-        }
-      >
-        <Link
-          className={
-            "block p-3 hover:bg-neutral-200/50 transition-colors duration-500 rounded-lg"
-          }
-          href={"#about"}
-        >
-          About
-        </Link>
-        <Link
-          className={
-            "block p-3 hover:bg-neutral-200/50 transition-colors duration-500 rounded-lg"
-          }
-          href={"#work"}
-        >
-          Work
-        </Link>
-        <Link
-          className={
-            "h-full bg-white hover:bg-black hover:text-white transition-all duration-500 overflow-hidden group rounded-lg"
-          }
-          href={"#connect"}
-        >
-          <div className="group-hover:-translate-y-13 transition-transform duration-500">
-            <div className="block p-3">Let's connect</div>
-            <div className="block p-3">Let's connect</div>
-          </div>
-        </Link>
-      </motion.nav>
+      <MenuBtn_desk breakpoint={breakpoint} />
       <MenuBtn isOn={isOn} setIsOn={setIsOn} />
       <NavMenu_mobile isOn={isOn}></NavMenu_mobile>
     </header>
   );
 }
+
+const MenuBtn_desk = ({ breakpoint }: { breakpoint: string }) => {
+  const isDesk = useMemo(() => checkDesktop(breakpoint), [breakpoint]);
+  const lenis = useLenis();
+  return (
+    <motion.nav
+      className="fixed z-[999] md:z-[0] top-4 left-1/2 -translate-x-1/2 hidden sm:flex gap-2 h-14 p-1 bg-white/25 backdrop-blur-xl text-[1.1rem] text-center rounded-lg"
+      initial={{ translateY: 0 }}
+      animate={
+        isDesk ? { translateY: [-100, 0], zIndex: [0, 999] } : { translateY: 0 }
+      }
+      transition={
+        isDesk
+          ? {
+              translateY: { times: [0, 1], duration: 0.5, delay: 1.9 },
+              zIndex: { duration: 0 },
+            }
+          : { duration: 0 }
+      }
+    >
+      <button
+        className={
+          "block p-3 hover:bg-white/30 transition-colors duration-500 rounded-lg cursor-pointer"
+        }
+        onClick={() => {
+          lenis?.scrollTo("#about");
+        }}
+      >
+        About
+      </button>
+      <button
+        className={
+          "block p-3 hover:bg-white/30 transition-colors duration-500 rounded-lg cursor-pointer"
+        }
+        onClick={() => {
+          lenis?.scrollTo("#work");
+        }}
+      >
+        Work
+      </button>
+      <button
+        className={
+          "h-full bg-white hover:bg-black hover:text-white transition-all duration-500 overflow-hidden group rounded-lg cursor-pointer"
+        }
+        onClick={() => {
+          lenis?.scrollTo("#connect");
+        }}
+      >
+        <div className="group-hover:-translate-y-13 transition-transform duration-500">
+          <div className="block p-3">Let's connect</div>
+          <div className="block p-3">Let's connect</div>
+        </div>
+      </button>
+    </motion.nav>
+  );
+};
 
 export const MenuBtn = ({
   isOn,
@@ -117,43 +128,50 @@ export const MenuBtn = ({
 };
 
 const NavMenu_mobile = ({ isOn }: { isOn: boolean }) => {
+  const lenis = useLenis();
   return (
     <div className="fixed z-[1000] w-max h-max top-0 right-0 block sm:hidden pr-8 -translate-y-full">
       <motion.nav
-        className="flex flex-col gap-2 p-1 bg-zinc-200/50 backdrop-blur-xl  text-[1.1rem] text-right rounded-lg"
+        className="flex flex-col gap-2 p-1 bg-white/25 backdrop-blur-xl  text-[1.1rem] rounded-lg"
         initial={{ translateY: 0 }}
         animate={isOn ? { translateY: [0, 255] } : { translateY: 0 }}
         transition={{
           translateY: { times: [0, 1], duration: 0.5 },
         }}
       >
-        <Link
+        <button
           className={
-            "block p-3 hover:bg-neutral-200/50 duration-500 rounded-lg"
+            "block p-3 hover:bg-white/30 duration-500 rounded-lg text-right cursor-pointer"
           }
-          href={"#about"}
+          onClick={() => {
+            lenis?.scrollTo("#about");
+          }}
         >
           About
-        </Link>
-        <Link
+        </button>
+        <button
           className={
-            "block p-3 hover:bg-neutral-200/50 duration-500 rounded-lg"
+            "block p-3 hover:bg-white/30 duration-500 rounded-lg text-right cursor-pointer"
           }
-          href={"#work"}
+          onClick={() => {
+            lenis?.scrollTo("#work");
+          }}
         >
           Work
-        </Link>
-        <Link
+        </button>
+        <button
           className={
-            "h-12 bg-white hover:bg-black hover:text-white transition-all duration-500 overflow-hidden group rounded-lg"
+            "h-12 bg-white hover:bg-black hover:text-white transition-all duration-500 overflow-hidden group rounded-lg cursor-pointer"
           }
-          href={"#connect"}
+          onClick={() => {
+            lenis?.scrollTo("#connect");
+          }}
         >
           <div className="group-hover:-translate-y-13 transition-transform duration-500">
             <div className="block p-3">Let's connect</div>
             <div className="block p-3">Let's connect</div>
           </div>
-        </Link>
+        </button>
       </motion.nav>
     </div>
   );
