@@ -20,7 +20,7 @@ export default function Header() {
     <header>
       <MenuBtn_desk breakpoint={breakpoint} />
       <MenuBtn isOn={isOn} setIsOn={setIsOn} />
-      <NavMenu_mobile isOn={isOn}></NavMenu_mobile>
+      <NavMenu_mobile isOn={isOn} setIsOn={setIsOn}></NavMenu_mobile>
     </header>
   );
 }
@@ -127,12 +127,18 @@ export const MenuBtn = ({
   );
 };
 
-const NavMenu_mobile = ({ isOn }: { isOn: boolean }) => {
+const NavMenu_mobile = ({
+  isOn,
+  setIsOn,
+}: {
+  isOn: boolean;
+  setIsOn: (is: boolean) => void;
+}) => {
   const lenis = useLenis();
   return (
     <div className="fixed z-[1000] w-max h-max top-0 right-0 block sm:hidden pr-8 -translate-y-full">
       <motion.nav
-        className="flex flex-col gap-2 p-1 bg-white/25 backdrop-blur-xl  text-[1.1rem] rounded-lg"
+        className="flex flex-col p-1 bg-white/25 backdrop-blur-xl  text-[1.1rem] rounded-lg"
         initial={{ translateY: 0 }}
         animate={isOn ? { translateY: [0, 255] } : { translateY: 0 }}
         transition={{
@@ -145,6 +151,7 @@ const NavMenu_mobile = ({ isOn }: { isOn: boolean }) => {
           }
           onClick={() => {
             lenis?.scrollTo("#about");
+            setIsOn(false);
           }}
         >
           About
@@ -155,6 +162,7 @@ const NavMenu_mobile = ({ isOn }: { isOn: boolean }) => {
           }
           onClick={() => {
             lenis?.scrollTo("#work");
+            setIsOn(false);
           }}
         >
           Work
@@ -165,6 +173,7 @@ const NavMenu_mobile = ({ isOn }: { isOn: boolean }) => {
           }
           onClick={() => {
             lenis?.scrollTo("#connect");
+            setIsOn(false);
           }}
         >
           <div className="group-hover:-translate-y-13 transition-transform duration-500">
