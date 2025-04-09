@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import ResizeContainer from "./components/resizeContainer";
 import Header from "./ui/header";
 import Section_body from "./ui/section_body";
+import Footer from "./ui/footer";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
           <Header />
           <Section1 />
           <Section_body />
+          <Footer />
         </ResizeContainer>
       </Provider>
     </ReactLenis>

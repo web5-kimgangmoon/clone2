@@ -8,14 +8,7 @@ import {
   useTransform,
 } from "motion/react";
 import Image from "next/image";
-import {
-  MouseEventHandler,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-} from "react";
+import { MouseEventHandler, useCallback, useMemo, useRef } from "react";
 import { useSelector } from "react-redux";
 import checkDesktop from "../lib/checkDesktop";
 import { animationTime } from "../lib/globalValue";
@@ -29,7 +22,7 @@ export default function Section_body() {
   const isDesk = useMemo(() => checkDesktop(breakpoint), [breakpoint]);
   return (
     <motion.section
-      className="relative bg-white block md:hidden"
+      className="relative bg-white block md:hidden pb-20 sm:pb-32"
       animate={isDesk ? { display: ["none", "block"] } : { display: "block" }}
       transition={
         isDesk
